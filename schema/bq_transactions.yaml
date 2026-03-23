@@ -1,0 +1,68 @@
+table_name: transactions
+description: "Transaction data loaded from postgres (Day-1) with deduplication support"
+
+partitioning: 
+  enabled: true
+  field: run_date
+  type: DAY
+
+clustering:
+  enabled: true
+  fields: 
+    - customer_id
+    - trx_id
+source_columns:
+  include:
+    - trx_id
+    - customer_id
+    - product_id
+    - unit_price
+    - quantity
+    - total_amount
+    - created_at
+    - updated_at
+  
+schema:
+  - name: trx_id
+    type: STRING
+    mode: REQUIRED
+    description: "Unique transaction identifier"
+  - name: customer_id
+    type: STRING
+    mode: REQUIRED
+    description: "Unique customer identifier, referencing to customers table's customer_id"
+  - name: product_id
+    type: STRING
+    mode: REQUIRED
+    description: "Product code identifier"
+  - name: unit_price
+    type: FLOAT64
+    mode: REQUIRED
+    description: "Product unit price"
+  - name: quantity
+    type: INTEGER
+    mode: REQUIRED
+    description: "Product quantity"
+  - name: total_amount
+    type: FLOAT64
+    mode: REQUIRED
+    description: "Total amount per transaction"
+  - name: created_at
+    type: TIMESTAMP
+    mode: REQUIRED
+    description: "Data creation date in postgres"
+  - name: updated_at
+    type: TIMESTAMP
+    mode: REQUIRED
+    description: "Data updated date in postgres"
+  - name: run_date
+    type: DATE
+    mode: REQUIRED
+    description: "Data ingestion date from Postgres to BigQuery"
+
+deduplication:
+  enabled: true
+  key_columns:
+    - trx_id
+  order_by:
+    - updated_at DESC

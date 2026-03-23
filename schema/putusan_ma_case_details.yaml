@@ -1,0 +1,112 @@
+table_name: putusan_ma_case_details
+description: "putusan_ma_case_details"
+
+partitioning: 
+  enabled: true
+  field: tanggal_dibacakan
+  type: MONTH
+
+clustering:
+  enabled: true
+  fields: 
+    - nomor_putusan
+    - putusan_ym
+
+source_columns:
+  include:
+    - nomor_putusan
+    - tingkat_proses
+    - klasifikasi
+    - kata_kunci
+    - tahun
+    - tanggal_register
+    - lembaga_peradilan
+    - jenis_lembaga_peradilan
+    - hakim_ketua
+    - hakim_anggota
+    - panitera
+    - amar
+    - catatan_amar
+    - tanggal_musyawarah
+    - tanggal_dibacakan
+    - pdf_link
+    - scrape_timestamp
+    - putusan_ym
+  
+schema:
+  - name: nomor_putusan
+    type: STRING
+    mode: REQUIRED
+    description: "nomor putusan kasus"
+  - name: tingkat_proses
+    type: STRING
+    mode: NULLABLE
+    description: "tingkat proses kasus"
+  - name: klasifikasi
+    type: STRING
+    mode: NULLABLE
+    description: "klasifikasi kasus"
+  - name: kata_kunci
+    type: STRING
+    mode: NULLABLE
+    description: "Kata kunci kasus"
+  - name: tahun
+    type: INTEGER
+    mode: REQUIRED
+    description: "Tahun register kasus"
+  - name: tanggal_register
+    type: DATE
+    mode: NULLABLE
+    description: "Tanggal register kasus"
+  - name: lembaga_peradilan
+    type: STRING
+    mode: NULLABLE
+    description: "Lembaga peradilan yang terlibat"
+  - name: jenis_lembaga_peradilan
+    type: STRING
+    mode: NULLABLE
+    description: "Jenis lembaga peradilan yang terlibat"
+  - name: hakim_ketua
+    type: STRING
+    mode: NULLABLE
+    description: "Hakim ketua"
+  - name: hakim_anggota
+    type: STRING
+    mode: NULLABLE
+    description: "hakim anggota"
+  - name: panitera
+    type: STRING
+    mode: NULLABLE
+    description: "panitera"
+  - name: amar
+    type: STRING
+    mode: NULLABLE
+    description: "amar"
+  - name: catatan_amar
+    type: STRING
+    mode: NULLABLE
+    description: "catatan amar"
+  - name: tanggal_musyawarah
+    type: DATE
+    mode: REQUIRED
+    description: "tanggal musyawarah"
+  - name: tanggal_dibacakan
+    type: DATE
+    mode: REQUIRED
+    description: "tanggal putusan dibacakan"
+  - name: pdf_link
+    type: STRING
+    mode: REQUIRED
+    description: "link pdf hasil putusan"
+  - name: scrape_timestamp
+    type: TIMESTAMP
+    mode: REQUIRED
+    description: "Waktu scraping"
+  - name: putusan_ym
+    type: STRING
+    mode: REQUIRED
+    description: "string YYYY-mm dari tanggal dibacakan"
+  - name: ingestion_timestamp
+    type: TIMESTAMP
+    mode: REQUIRED
+    description: "Waktu ingestion kedalam bigquery"
