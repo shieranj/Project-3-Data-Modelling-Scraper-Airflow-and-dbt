@@ -1,0 +1,13 @@
+dbt_projects:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: jcdeah-007
+      dataset: finalproject_shieranjuvi
+      threads: 4
+      keyfile: /opt/airflow/keys/new_jcdeah-007.json
+      location: asia-southeast2
+      timeout_seconds: 300
+
