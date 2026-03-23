@@ -1,0 +1,73 @@
+table_name: customers
+description: "Customer retail data loaded from postgres (Day-1) with deduplication support"
+
+partitioning: 
+  enabled: true
+  field: run_date
+  type: DAY
+
+clustering:
+  enabled: true
+  fields: 
+    - customer_id
+    - email
+source_columns:
+  include:
+    - customer_id
+    - name
+    - email
+    - birthday
+    - phone_number
+    - address
+    - join_date
+    - created_at
+    - updated_at
+  
+schema:
+  - name: customer_id
+    type: STRING
+    mode: REQUIRED
+    description: "Unique customer identifier"
+  - name: name
+    type: STRING
+    mode: REQUIRED
+    description: "Customer full name"
+  - name: email
+    type: STRING
+    mode: REQUIRED
+    description: "Customer email"
+  - name: birthday
+    type: DATE
+    mode: REQUIRED
+    description: "Customer birthdate"
+  - name: phone_number
+    type: STRING
+    mode: REQUIRED
+    description: "Customer active phone number"
+  - name: address
+    type: STRING
+    mode: NULLABLE
+    description: "Customer current address"
+  - name: join_date
+    type: DATE
+    mode: REQUIRED
+    description: "Customer join_date"
+  - name: created_at
+    type: TIMESTAMP
+    mode: REQUIRED
+    description: "Data creation date in postgres"
+  - name: updated_at
+    type: TIMESTAMP
+    mode: REQUIRED
+    description: "Data updated date in postgres"
+  - name: run_date
+    type: DATE
+    mode: REQUIRED
+    description: "Data ingestion date from Postgres to BigQuery"
+
+deduplication:
+  enabled: true
+  key_columns:
+    - customer_id
+  order_by:
+    - updated_at DESC

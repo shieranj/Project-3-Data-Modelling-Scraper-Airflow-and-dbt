@@ -1,0 +1,58 @@
+table_name: payments
+description: "Payment data loaded from postgres (Day-1) with deduplication support"
+
+partitioning: 
+  enabled: true
+  field: run_date
+  type: DAY
+
+clustering:
+  enabled: true
+  fields: 
+    - payment_id
+    - trx_id
+source_columns:
+  include:
+    - payment_id
+    - trx_id
+    - amount
+    - payment_method
+    - created_at
+    - updated_at
+  
+schema:
+  - name: payment_id
+    type: STRING
+    mode: REQUIRED
+    description: "Unique payment identifier"
+  - name: trx_id
+    type: STRING
+    mode: REQUIRED
+    description: "Unique transaction identifier, referencing to transactions table's trx_id"
+  - name: amount
+    type: FLOAT64
+    mode: REQUIRED
+    description: "Amount per payment"
+  - name: payment_method
+    type: STRING
+    mode: REQUIRED
+    description: "Payment method used"
+  - name: created_at
+    type: TIMESTAMP
+    mode: REQUIRED
+    description: "Data creation date in postgres"
+  - name: updated_at
+    type: TIMESTAMP
+    mode: REQUIRED
+    description: "Data updated date in postgres"
+  - name: run_date
+    type: DATE
+    mode: REQUIRED
+    description: "Data ingestion date from Postgres to BigQuery"
+
+deduplication:
+  enabled: true
+  key_columns:
+    - payment_id
+  order_by:
+    - updated_at DESC
