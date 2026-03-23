@@ -1,0 +1,91 @@
+models:
+  - name: vendor_performance_monthly
+    description: "vendor monthly performance,  based on id, vendor_name, average fare, total distance, tips statistics, and revenue"
+    columns:
+      - name: vendor_id
+        description: "Taxi vendor identifier"
+        data_tests:
+          - not_null
+      - name: vendor_name
+        description: "vendor name."
+        data_tests:
+          - accepted_values:
+              values: ["Creative Mobile Technologies, LLC", "Curb Mobility, LLC", "Myle Technologies Inc"]
+      - name: avg_fare
+        description: "average fare obtained."
+        data_tests:
+           - not_null
+      - name: total_distance
+        description: "total distance per vendor id"
+        data_tests:
+          - not_null
+      - name: trip_count
+        description: "amount of trips done"
+        data_tests:
+          - not_null
+      - name: min_tips
+        description: "minimum tip obtained"
+      - name: max_tips
+        description: "max tip obtained"
+      - name: total_tips_earned
+        description: "total tips earned"
+      - name: total_revenue
+        description: "total revenue based on total amount"
+        data_tests:
+          - not_null
+      - name: data_period
+        description: "data period, focuses on year-month"
+        data_tests:
+          - not_null
+      - name: dbt_proccessed_time
+        description: "dbt processed time"
+        data_tests:
+          - not_null
+ 
+  - name: top_3_zone_performance
+    description: "Top 3 zone performance per month"
+    columns:
+      - name: pickup_location_id
+        description: "TLC Taxi Zone in which the taximeter was engaged."
+        data_tests:
+          - not_null
+      - name: borough
+        description: "borough name."
+        data_tests:
+          - not_null
+      - name: zone
+        description: "zone."
+      - name: trip_count
+        description: "amount of trips done"
+        data_tests:
+          - not_null
+      - name: total_revenue
+        description: "total revenue based on total amount"
+        data_tests:
+          - not_null
+      - name: total_distance
+        description: "total distance per vendor id"
+        data_tests:
+          - not_null
+      - name: avg_fare
+        description: "average fare obtained."
+        data_tests:
+           - not_null
+      - name: total_tips_earned
+        description: "total tips earned"
+      - name: revenue_per_mile
+        description: "Revenue earned per mile trip"
+      - name: data_period
+        description: "data period, focuses on year-month"
+        data_tests:
+          - not_null
+      - name: zone_rank
+        description: "ranking of pickup zones by trip count per month"
+        data_tests:
+          - not_null
+      - name: dbt_proccessed_time
+        description: "dbt processed time"
+        data_tests:
+          - not_null
+ 
+           
