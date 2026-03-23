@@ -1,0 +1,25 @@
+psycopg2-binary==2.9.9
+numpy==1.26.4
+pandas==2.1.4
+pandas-gbq==0.23.1
+google-cloud-bigquery
+pytz==2022.6
+db-dtypes
+pendulum
+Faker
+PyYAML
+tzdata
+fsspec
+gcsfs
+requests
+beautifulsoup4
+pyarrow
+python-dateutil
+dbt-core == 1.10.3
+dbt-bigquery ==1.10.3
+google-cloud-pubsub==2.27.1
+apache-beam[gcp]==2.69.0
+python-dotenv
+path
+pyyaml
+pdfplumber
