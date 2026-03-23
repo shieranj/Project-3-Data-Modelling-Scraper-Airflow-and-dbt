@@ -1,0 +1,87 @@
+models:
+  - name: prep_ny_greentaxi
+    description: "Green Taxi preparation layer"
+    columns:
+      - name: vendor_id
+        description: "Taxi vendor identifier"
+        data_tests:
+          - not_null
+      - name: lpep_pickup_datetime
+        description: "The date and time when the meter was engaged."
+        data_tests:
+          - not_null
+      - name: lpep_dropoff_datetime
+        description: "The date and time when the meter was disengaged."
+        data_tests:
+          - not_null
+      - name: ratecode_id
+        description: "The final rate code in effect at the end of the trip."
+        data_tests:
+          - not_null
+      - name: pickup_location_id
+        description: "TLC Taxi Zone in which the taximeter was engaged."
+        data_tests:
+          - not_null
+      - name: dropoff_location_id
+        description: "TLC Taxi Zone in which the taximeter was disengaged"
+      - name: passenger_count
+        description: "The number of passengers in the vehicle."
+      - name: trip_distance
+        description: "The elapsed trip distance in miles reported by the taximeter."
+        data_tests:
+          - not_null
+      - name: fare_amount
+        description: "The time-and-distance fare calculated by the meter."
+        data_tests:
+          - not_null
+      - name: extra
+        description: "Miscellaneous extras and surcharges."
+      - name: mta_tax
+        description: "Tax that is automatically triggered based on the metered rate in use."
+      - name: tip_amount
+        description: "Tip amount, This field is automatically populated for credit card tips. Cash tips are not included."
+      - name: tolls_amount
+        description: "Total amount of all tolls paid in trip."
+      - name: improvement_surcharge
+        description: Improvement surcharge assessed trips at the flag drop. The improvement surcharge began being levied in 2015"
+      - name: total_amount
+        description: "The total amount charged to passengers. Does not include cash tips."
+        data_tests:
+          - not_null
+      - name: payment_id
+        description: "A numeric code signifying how the passenger paid for the trip."
+        data_tests:
+          - not_null
+      - name: trip_id
+        description: "A code indicating whether the trip was a street-hail or a dispatch that is automatically assigned based on the metered rate in use but can be altered by the driver"
+        data_tests:
+          - not_null
+      - name: congestion_surcharge
+        description: "Total amount collected in trip for NYS congestion surcharge"
+      - name: cbd_congestion_fee
+        description: "Per-trip charge for MTA's Congestion Relief Zone starting Jan. 5, 2025."
+      - name: data_period
+        description: "Data period of NY Taxi Data"
+        data_tests:
+          - not_null
+      - name: run_date
+        description: "Extraction & Ingestion date to BigQuery"
+        data_tests:
+          - not_null
+
+  - name: prep_taxi_zone
+    description: "taxi zone lookup prep layer"
+    columns:
+      - name: location_id
+        description: "Unique location identifier"
+        data_tests:
+          - unique
+          - not_null
+      - name: borough
+        description: "Town or district that is an administrative unit."
+        data_tests:
+          - not_null
+      - name: zone
+        description: "taxi zone"
+      - name: service_zone
+        description: "taxi service zone"
