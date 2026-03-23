@@ -8,9 +8,18 @@ The project is designed to simulate real-world data engineering challenges, incl
 - Transforming raw data into analytics-ready datasets
 - Alerting via Webhook
 
+## Tech Stack
+- Python
+- Airflow
+- GCS
+- BigQuery
+- Pub/Sub
+- Dataflow with Apache Beam
+- Selenium Webdriver
+
 ## 📄 Documentation
-[Core Project](https://docs.google.com/document/d/14GmpAnVlfQPLYaFtlThM_GprW5cFJ8NYdKoEOAwwkfg/edit?tab=t.hmdn9dutq2xh)
-[Project Documentation](https://docs.google.com/document/d/1XijkOXWrAomxmqPIQjHnc-ouDwxDJuq9G-bZHt5DYMc/edit?tab=t.8ynluzw7hb8y)
+- [Core Project](https://docs.google.com/document/d/14GmpAnVlfQPLYaFtlThM_GprW5cFJ8NYdKoEOAwwkfg/edit?tab=t.hmdn9dutq2xh)
+- [Project Documentation](https://docs.google.com/document/d/1XijkOXWrAomxmqPIQjHnc-ouDwxDJuq9G-bZHt5DYMc/edit?tab=t.8ynluzw7hb8y)
 
 ## 1️⃣ Data Pipeline & Modelling (Core Project)
 ### Dummy Ecommerce Data (Batch & Streaming)
@@ -52,9 +61,9 @@ The pipeline extracts case metadata and associated PDF files, stages them in Goo
 
 ## 3️⃣ Alerts & Transformation
 ### Discord Alert via Airflow
-    <p align="center">
-        <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/da2bbcf13c6ab0503625a6c54ef130ad8f62caf1/images/discord_example.png" width="700"/>
-    </p>
+<p align="center">
+    <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/da2bbcf13c6ab0503625a6c54ef130ad8f62caf1/images/discord_example.png" width="700"/>
+</p>
 
 ### dbt models (data transformation)
 #### Dummy Ecommerce Data
