@@ -1,7 +1,0 @@
-sources:
-  - name: raw
-    database: jcdeah-007
-    schema: finalproject_shieranjuvi_putusanma_raw
-    tables:
-      - name: case_details
-      - name: pdf_details
