@@ -1,0 +1,43 @@
+table_name: payment_status
+description: "Payment status streamed via Pub/Sub & DataFlow"
+
+partitioning: 
+  enabled: true
+  field: ingestion_time
+  type: DAY
+
+clustering:
+  enabled: true
+  fields: 
+    - status
+    - payment_id
+    
+schema:
+  - name: event_id
+    type: STRING
+    mode: REQUIRED
+    description: "Unique event identifier."
+  - name: event_time
+    type: TIMESTAMP
+    mode: REQUIRED
+    description: "Time when the event occured."
+  - name: payment_id
+    type: STRING
+    mode: REQUIRED
+    description: "Payment identifier."
+  - name: trx_id
+    type: STRING
+    mode: REQUIRED
+    description: "Transaction identifier."
+  - name: status
+    type: STRING
+    mode: REQUIRED
+    description: "Payment status: FAILED, SUCCESS, PENDING."
+  - name: reason
+    type: STRING
+    mode: NULLABLE
+    description: "Failure or Pending reason, null for Success."
+  - name: ingestion_time
+    type: TIMESTAMP
+    mode: REQUIRED
+    description: "Ingestion time to BigQuery"
