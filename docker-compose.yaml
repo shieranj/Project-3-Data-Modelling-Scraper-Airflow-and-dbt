@@ -1,0 +1,136 @@
+services:
+  postgres_docker:
+    image: "postgres:15"
+    container_name: capstone3_postgres
+    networks: #bridge that connects containers
+      - capstone3_bridge
+    environment: #creds taken from .env
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes: #save sql data to directory
+      - ./pgdata:/var/lib/postgresql/data
+    ports: 
+     - "5438:5432"
+    healthcheck: #healthchecks to verify if postgres is accepting connections
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s #check every 10s
+      timeout: 5s #wait max 5s 
+      retries: 3 #retry 3 times before marking unhealthy
+
+  airflow-init:
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    image: apache/airflow:2.9.3-python3.12
+    container_name: capstone3_airflow_init
+    networks:
+      - capstone3_bridge
+    env_file:
+      - .env
+    depends_on:
+      postgres_docker:
+        condition: service_healthy
+
+    environment:
+      AIRFLOW__CORE__EXECUTOR: ${AIRFLOW__CORE__EXECUTOR}
+      #Database connection string for Airflow metadata      
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: ${AIRFLOW__DATABASE__SQL_ALCHEMY_CONN} 
+      AIRFLOW__CORE__LOAD_EXAMPLES: ${AIRFLOW__CORE__LOAD_EXAMPLES}
+      _AIRFLOW_DB_MIGRATE: 'true' #run database migrations
+      _AIRFLOW_WWW_USER_CREATE: 'true' #create admin user
+
+      #web UI account
+      _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_ADMIN_USERNAME}
+      _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_ADMIN_PASSWORD}
+    
+    command: version
+    volumes: #mout local directories into container
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./scripts:/opt/airflow/scripts
+      - ./keys:/opt/airflow/keys
+      - ./schema:/opt/airflow/schema
+      - ./dbt:/opt/airflow/dbt
+      - ./dbt_profiles:/home/airflow/.dbt
+
+  airflow-webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    image: apache/airflow:2.9.3-python3.12
+    container_name: capstone3_airflow_webserver
+    networks:
+      - capstone3_bridge
+    env_file:
+      - .env
+
+    # Wait for airflow-init to complete successfully
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    
+    # Same configuration as init service
+    environment:
+      AIRFLOW__CORE__EXECUTOR: ${AIRFLOW__CORE__EXECUTOR}
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: ${AIRFLOW__DATABASE__SQL_ALCHEMY_CONN}
+      AIRFLOW__CORE__LOAD_EXAMPLES: ${AIRFLOW__CORE__LOAD_EXAMPLES}
+    
+    ports:
+      - "8080:8080"
+    
+    # Run the webserver component
+    command: webserver
+    
+    # Mount the same directories as init
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./scripts:/opt/airflow/scripts
+      - ./keys:/opt/airflow/keys
+      - ./schema:/opt/airflow/schema
+      - ./dbt:/opt/airflow/dbt
+      - ./dbt_profiles:/home/airflow/.dbt
+ 
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]      
+      interval: 30s
+      timeout: 10s      
+      retries: 3  
+ 
+  airflow-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    image: apache/airflow:2.9.3-python3.12
+    container_name: capstone3_airflow_scheduler   
+    networks:
+      - capstone3_bridge
+    env_file:
+      - .env
+    
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    
+    environment:
+      AIRFLOW__CORE__EXECUTOR: ${AIRFLOW__CORE__EXECUTOR}
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: ${AIRFLOW__DATABASE__SQL_ALCHEMY_CONN}
+      AIRFLOW__CORE__LOAD_EXAMPLES: ${AIRFLOW__CORE__LOAD_EXAMPLES}
+    
+    # Run the scheduler component (monitors DAGs and triggers tasks)
+    command: scheduler
+    
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./scripts:/opt/airflow/scripts
+      - ./keys:/opt/airflow/keys
+      - ./schema:/opt/airflow/schema
+      - ./dbt:/opt/airflow/dbt
+      - ./dbt_profiles:/home/airflow/.dbt
+
+networks:
+  capstone3_bridge:
+    driver: bridge
+    name: capstone3_bridge
