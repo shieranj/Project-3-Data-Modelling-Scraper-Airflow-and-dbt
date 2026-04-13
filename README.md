@@ -63,7 +63,7 @@ A monthly batch ELT pipeline ingesting NYC Green Taxi Trip data from NYC TLC pub
 - BigQuery storage optimized with **paritioning and clustering** for cost efficient querying
 - dbt transformation producing preparation, core, and mart layers to produce tables for reporting and analysis
 - Data quality checks with **dbt tests** and **Discord Webhook** alerting on pipeline failure
-- 
+  
 **Pipeline Flow:**
     <p align="center">
         <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/ny_taxi_batch.png" width="700"/>
