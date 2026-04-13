@@ -44,15 +44,15 @@ Simulates a production-grade ecommerce system with both batch & real-time data f
 - **dbt transoformation** with dimensional modeling for analytical consumption
 - Data quality checks with **dbt tests** and **Discord Webhook** alerting on pipeline failure
 
-    **Batching Pipeline Flow:**
-    <p align="center">
-        <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/dummy_batch.png" width="700"/>
-    </p>
+#### Batching Pipeline Flow:
+ <p align="center">
+     <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/dummy_batch.png" width="700"/>
+ </p>
  
-    **Streaming Pipeline Flow:**
-    <p align="center">
-        <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/dummy_streaming.png" width="700"/>
-    </p>
+#### Streaming Pipeline Flow:
+ <p align="center">
+     <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/dummy_streaming.png" width="700"/>
+ </p>
 
 ## 2️⃣New York Green Taxi Data Pipeline
 A monthly batch ELT pipeline ingesting NYC Green Taxi Trip data from NYC TLC public dataset (2023 onwards) into BigQuery
@@ -63,11 +63,11 @@ A monthly batch ELT pipeline ingesting NYC Green Taxi Trip data from NYC TLC pub
 - BigQuery storage optimized with **paritioning and clustering** for cost efficient querying
 - dbt transformation producing preparation, core, and mart layers to produce tables for reporting and analysis
 - Data quality checks with **dbt tests** and **Discord Webhook** alerting on pipeline failure
-  
-**Pipeline Flow:**
-    <p align="center">
-        <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/ny_taxi_batch.png" width="700"/>
-    </p>
+
+#### Pipeline Flow:
+ <p align="center">
+     <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/ny_taxi_batch.png" width="700"/>
+ </p>
 
 ## 3️⃣Adakami Daily Statistics
 A daily automated pipeline ingesting lending statistics from Adakami's public data API, staged in GCS and loaded into BigQuery with dbt transformations up to preparation layer. 
@@ -78,10 +78,10 @@ A daily automated pipeline ingesting lending statistics from Adakami's public da
 - Data cleansing and standardization in dbt preparation layer for analytics ready output
 - Discord webhook notifications for pipeline monitoring and failure alerting
   
-**Pipeline Flow**
-    <p align="center">
-        <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/adakami_drawio.png" width="700"/>
-    </p>
+#### Pipeline Flow:
+ <p align="center">
+     <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/adakami_drawio.png" width="700"/>
+ </p>
 
 ## 4️⃣Putusan Mahkamah Agung 2025 (Case & PDF Metadata)
 The most technically challenging pipeline in this repository. Scraping unstructured legal data (case metadata and PDF verdicts) from Indonesia's Supreme Court website and transforming it into structured data in BigQuery. 
@@ -92,10 +92,10 @@ The most technically challenging pipeline in this repository. Scraping unstructu
 - **dbt incremental merge strategy** for deduplication, handles both within-run and cross-run duplicates
 - Airflow pipeline using **Taskflow API** with dynamic dbt command selectors based on upstream task results
   
-**Pipeline Flow**
-    <p align="center">
-        <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/putusan_ma.png" width="700"/>
-    </p>
+#### Pipeline Flow:
+ <p align="center">
+     <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/a84885cd3b40130e985778e5b7fb78ee900354de/images/putusan_ma.png" width="700"/>
+ </p>
 
 ## ⚠️Pipeline Monitoring - Discord Alerts
 All pipelines are integrated with Discord webhook notifications to surface pipeline failures and task level errors. 
