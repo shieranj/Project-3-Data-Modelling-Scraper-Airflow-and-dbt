@@ -12,6 +12,7 @@ End-to-end data pipelines covering batch ingestion, real-time streaming, web scr
 - Project 4 — Mahkamah Agung Court Decisions (Unstructured Scrape)
 - Monitoring — Discord Alerts
 - Data Modelling — dbt Dimensional Models
+- Data Mart Visualization
 
 ## Project Summary
 Four independent pipelines that demonstrate a broad range of real-world data engineering patterns.
@@ -33,6 +34,8 @@ Four independent pipelines that demonstrate a broad range of real-world data eng
 | **Database**          | PostgreSQL                                    |
 | **Languages**         | Python, SQL                                   |
 | **Alerting**          | Discord Webhook                               |
+| **Visualization**     | Looker Studio                                 |
+
 
 ## 1️⃣Ecommerce Data Pipeline - Batch & Streaming
 Simulates a production-grade ecommerce system with both batch & real-time data flows feeding into BigQuery
@@ -115,4 +118,10 @@ All pipelines are integrated with Discord webhook notifications to surface pipel
 
 <p align="center">
     <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/da2bbcf13c6ab0503625a6c54ef130ad8f62caf1/images/ny_taxi_dimfact.drawio.png" width="700"/>
+</p>
+
+## 📊Data Mart Visualization
+Using one of NY TLC Green Taxi Data's Datamart, Zone Performance. Zone Performance datamart provides statistical information of the top 3 busiest zone in NY, Google's Looker Studio is used for data visualization. 
+<p align="center">
+    <img src="https://github.com/shieranj/Project-3-Data-Modelling-Scraper-Airflow-and-dbt/blob/main/images/looker_studio_sample.gif" width="700"/>
 </p>
